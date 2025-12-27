@@ -216,7 +216,7 @@ $host.UI.RawUI.WindowTitle = $ToolName
 # HOME MENU
 function Show-Menu {
     Clear-Host
-    Write-Host "Test Installer using PowerShell by @eksan127" -BackgroundColor Red -ForegroundColor White
+    Write-Host "This version only for test and not work for now" -BackgroundColor Red -ForegroundColor White
     Write-Host "++=================================================================================++"
     Write-Host "                          Spot-ify Installer With SpotX Patch"                    
     Write-Color -Text "                                         ", "$AppVersion" -Color White, Blue                                         
