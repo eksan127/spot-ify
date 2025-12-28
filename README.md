@@ -10,6 +10,8 @@ In this Tool you can Set:
 - Analytics sending has been disabled
 # Feature tools
 - Hiding podcasts, episodes, and audiobooks (Optional)
+- Custom Size Cache
+- Chose Theme Lyric
 - Spotify update Blocked  
 >[!NOTE]
 >Why update Blocked by Default? Because if Spotify update automatically will remove the patch  
