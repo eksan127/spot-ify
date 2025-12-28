@@ -4,4 +4,6 @@ In this Tool you can Set:
 - Custom Max Size Cache
 - Chose Theme Lyric  
 # How to run this tool  
-`irm https://eksan127.github.io/spot-ify/run_tool.ps1 | iex`
+```PowerShell  
+irm https://eksan127.github.io/spot-ify/run_tool.ps1 | iex
+```
