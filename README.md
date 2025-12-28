@@ -5,7 +5,7 @@ Spot-ify is tool for Install, Update Spotify and patching with script from [Spot
 In this Tool you can Set:
 - Custom Max Size Cache
 - Chose Theme Lyric  
-# what is patched from Spotify
+# What is patched from Spotify
 - All banner and Ads blocked
 - Analytics sending has been disabled
 # Feature tools
