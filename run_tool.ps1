@@ -15,19 +15,19 @@ My Page: https://eksan127.gitbook.io/revanced-xsn-lite/
 # INPUT VARIABLE
 $ToolName = "Spot-ify Installer Tool"
 $AppVersion = "V4.5"
-#$MsgContinue = "Press Enter to Continue"
+$MsgContinue = "Back to Menu Press Enter"
 $AccountFree = "Free Account"
 $AccountPrem = "Premium Account"
-$ThemeRecom = "spotify"
+$Theme = "spotify"
 $LyricText = "With Theme Lyric"
 $CacheText = "Cache Limit"
 $Global:DefaultCache = 10000
 $Global:SizeUnit = "MB"
 $AppDataRoaming = $env:APPDATA
 $PathSpot = "$AppDataRoaming\Spotify\Spotify.exe"
-$url = "https://raw.githubusercontent.com/SpotX-Official/SpotX/refs/heads/main/run.ps1"
-$command = "-new_theme -lyrics_stat $ThemeRecom -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -block_update_on -cache_limit $DefaultCache -DisableStartup -newFullscreenMode"
-$Global:SpotStartText = "Do you want Start Spotify now?"
+$url = 'https://raw.githubusercontent.com/SpotX-Official/SpotX/refs/heads/main/run.ps1'
+$command = "-new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -block_update_on -DisableStartup -newFullscreenMode"
+$Global:SpotStartText = "Do you want Start Spotify now"
 
 
 # CUSTOM FUNCTION COLORING
@@ -168,14 +168,15 @@ function StartSpot {
     #Write-Host "Cek Folder Spotify"
     if (Test-Path -Path $PathSpot -PathType Leaf){
         #File exist
-        Write-Host "Opening Spotify, Pleaase Wait...."
-        Pause
-        #& $PathSpot
+        Clear-Host
+        Write-Host "Opening Spotify, Pleaase Wait...." -ForegroundColor Green
+        & $PathSpot
+        Start-Sleep -Seconds 2
         #return $true
     }
     else {
-        Write-Host "Spotify not Found!!!" -BackgroundColor Red
-        Pause
+        Write-Host "Spotify not Found!!!" -ForegroundColor Red
+        Read-Host -Prompt $MsgContinue
         #return $false
     }
 }
@@ -216,12 +217,13 @@ $host.UI.RawUI.WindowTitle = $ToolName
 # HOME MENU
 function Show-Menu {
     Clear-Host
-    Write-Host "This version only for test and not work for now" -BackgroundColor Red -ForegroundColor White
-    Write-Host "++=================================================================================++"
-    Write-Host "                          Spot-ify Installer With SpotX Patch"                    
-    Write-Color -Text "                                         ", "$AppVersion" -Color White, Blue                                         
-    Write-Host "                             Thanks to SpotX and @amd64fox"
-    Write-Host "++=================================================================================++"
+    #Write-Host "This version only for test and not work for now" -BackgroundColor Red -ForegroundColor White
+    Write-Host " ++===============================================================================++"
+    Write-Host "                         Spot-ify Installer With SpotX Patch"                    
+    Write-Color -Text "                                        ", "$AppVersion" -Color White, Cyan                                         
+    Write-Host "                           Thanks to SpotX and @amd64fox"
+    Write-Host " ++===============================================================================++"
+    #Write-Color -Text "          ", " Warning:", " This tool for some Antivirus will be marked as virus" -Color White, Yellow, White
     Write-Host " "
     Write-Host "MENU:"
     Write-Host "[1] Recomended Install (for Free Account)" -ForegroundColor Green
@@ -240,13 +242,13 @@ do {
             Clear-Host
             $host.UI.RawUI.WindowTitle = "Recommended Install"
             Write-Host "====================================================================================="
+            Write-Host " "
             Write-Host "  Recommended installation is a simple installation process without"
             Write-Host "  selecting a theme, setting the cache so that it speeds up the installation process."
-            Write-Host "  However, if you want to customize, you can use the custom installation menu."
+            Write-Host "  However, if you want to customize, you can use other installation menu."
             Write-Host " "
-            Write-Color -Text " ", " Warning:", " Please Disable your Antivirus first if detecting this tool as a Virus" -Color White, Yellow, White
             Write-Host "====================================================================================="
-            Write-Host ""
+            Write-Host " "
             Write-Host "You Will Install Recommended version With:"
             Write-Host "-" $AccountFree
             Write-Color -Text "-", " $LyricText", " $ThemeRecom" -Color White, White, Green
@@ -254,10 +256,11 @@ do {
             if (Get-YesNoChoice) {
                 Write-Color -Text "Please Wait..." -Color Green
                 Start-Sleep -Seconds 2
-                #Clear-Host
+                Clear-Host
                 #Write-Host $url
-                #Write-Host $command
-                Write-Host "Spotify Succesfully Installed" -BackgroundColor Green -ForegroundColor Black
+                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $command -cache_limit $DefaultCache -lyrics_stat $Theme"
+                #Write-Host $command "$Theme"
+                Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
                 Write-Host ""
                 Write-Color -Text "$SpotStartText" -Color Cyan
                 if (Get-YesNoChoice){
@@ -280,12 +283,12 @@ do {
             Write-Host "- Theme" $LyricFree
             Write-Host "- Cache Size" $CacheFree$SizeUnit
             if (Get-YesNoChoice){
+                #$Theme = $LyricFree
                 Write-Color -Text "Please Wait..." -Color Green
                 Start-Sleep -Seconds 2
-                #Clear-Host
-                #Write-Host $url
-                #Write-Host $command
-                Write-Host "Spotify Succesfully Installed" -BackgroundColor Green -ForegroundColor Black
+                Clear-Host
+                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $command -cache_limit $CacheFree -lyrics_stat $LyricFree"
+                Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
                 Write-Host ""
                 Write-Color -Text "$SpotStartText" -Color Cyan
                 if (Get-YesNoChoice){
@@ -311,10 +314,9 @@ do {
             if (Get-YesNoChoice){
                 Write-Color -Text "Please Wait..." -Color Green
                 Start-Sleep -Seconds 2
-                #Clear-Host
-                #Write-Host $url
-                #Write-Host $command
-                Write-Host "Spotify Succesfully Installed" -BackgroundColor Green -ForegroundColor Black
+                Clear-Host
+                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } -premium $command -cache_limit $CacheFree -lyrics_stat $LyricFree"
+                Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
                 Write-Host ""
                 Write-Color -Text "$SpotStartText" -Color Cyan
                 if (Get-YesNoChoice){
