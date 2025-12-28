@@ -22,7 +22,6 @@ In this Tool you can Set:
 - PowerShell 5.1 and Above
 # How to run this tool  
 Just open PowerShell or use [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-US&gl=ID) for better Performance and Display, then copy syntax and hit Enter  
-PowerShell
 ```Shell  
 irm https://eksan127.github.io/spot-ify/run_tool.ps1 | iex
 ```  
