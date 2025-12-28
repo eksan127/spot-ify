@@ -14,7 +14,7 @@ In this Tool you can Set:
 >[!NOTE]
 >Why update Blocked by Default? Because if Spotify update automatically will remove the patch  
 >How to Update? just Run the tool again  
-# Requerement
+# Requirements
 - Only for Windows 10 and Later
 - Spotify Desktop (not Microsoft Store Version)
 - PowerShell 5.1 and Above
@@ -26,4 +26,8 @@ irm https://eksan127.github.io/spot-ify/run_tool.ps1 | iex
 >[!WARNING]
 >This tool for some Antivirus will be marked as virus  
 
-❤️ Big Thanks for [SpotX](https://github.com/SpotX-Official/SpotX)
+>[!NOTE]
+>Please don't make a PR, will be ignored  
+
+❤️ Big Thanks for [SpotX](https://github.com/SpotX-Official/SpotX)  
+👤 Read on [My Personal Pages](https://eksan127.gitbook.io/revanced-xsn-lite/wiki/spot-ify-installer)
