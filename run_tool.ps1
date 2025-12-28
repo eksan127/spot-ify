@@ -212,11 +212,11 @@ function Get-YesNoChoice {
 
 #Set window to 100 columns wide and 40 lines high
 Set-ConsoleWindowSize -Width 85 -Height 40
-$host.UI.RawUI.WindowTitle = $ToolName
 
 # HOME MENU
 function Show-Menu {
     Clear-Host
+    $host.UI.RawUI.WindowTitle = $ToolName
     #Write-Host "This version only for test and not work for now" -BackgroundColor Red -ForegroundColor White
     Write-Host " ++===============================================================================++"
     Write-Host "                         Spot-ify Installer With SpotX Patch"                    
@@ -229,14 +229,14 @@ function Show-Menu {
     Write-Host "[1] Recomended Install (for Free Account)" -ForegroundColor Green
     Write-Host "[2] Free Account" -ForegroundColor Green
     Write-Host "[3] Premium Account" -ForegroundColor Green
+    Write-Host "[4] Uninstall Patch" -ForegroundColor DarkYellow
     Write-Host "[Q] Quit" -ForegroundColor Red
+    Write-Host " "
 }
 # CHOICE USER MENU
 do {
     Show-Menu
     $Menu = Read-Host -Prompt "Enter your Choice [1,2,3..,Q]?"
-    Write-Host ""
-
     switch ($Menu) {
         '1' {
             Clear-Host
@@ -329,6 +329,12 @@ do {
             else {
                 Show-Menu
             }
+        }
+        '4' {
+            Clear-Host
+            $Host.UI.RawUI.WindowTitle = "Uninstall Patch"
+            Write-Host "Uninstall Patch Soon..."
+            Pause
         }
         'q' {
             Write-Host "Quitting Tool" -ForegroundColor Yellow
