@@ -32,4 +32,4 @@ irm https://eksan127.github.io/spot-ify/run_tool.ps1 | iex
 >Please don't make a PR, will be ignored  
 
 ❤️ Big Thanks for [SpotX](https://github.com/SpotX-Official/SpotX)  
-👤 Read on [My Personal Pages](https://eksan127.gitbook.io/revanced-xsn-lite/wiki/spot-ify-installer)
+👨 Read on [My Personal Pages](https://eksan127.gitbook.io/revanced-xsn-lite/wiki/spot-ify-installer)
