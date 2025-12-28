@@ -1,7 +1,7 @@
 # Spot-ify
-Spot-ify is Spotify Installer with SpotX Patch </br>
+Spot-ify is Spotify Installer with SpotX Patch  
 In this Tool you can Set:
 - Max Size Cache
-- Theme Lyric </br>
+- Theme Lyric  
 
 Before Installing Spotify
