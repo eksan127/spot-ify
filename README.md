@@ -1,7 +1,7 @@
 # Spot-ify
-This tool created ispired by [SpotX](https://github.com/SpotX-Official/SpotX)
+This tool created ispired by [SpotX](https://github.com/SpotX-Official/SpotX)  
 In this Tool you can Set:
 - Custom Max Size Cache
-- Chose Theme Lyric
+- Chose Theme Lyric  
 # How to run this tool  
-> irm https://eksan127.github.io/spot-ify/run_tool.ps1 | iex
+`irm https://eksan127.github.io/spot-ify/run_tool.ps1 | iex`
