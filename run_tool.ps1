@@ -25,8 +25,8 @@ $Global:DefaultCache = 10000
 $Global:SizeUnit = "MB"
 $AppDataRoaming = $env:APPDATA
 $PathSpot = "$AppDataRoaming\Spotify\Spotify.exe"
-$url = 'https://spotx-official.github.io/run.ps1'
-$command = "-new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -block_update_on -DisableStartup -newFullscreenMode"
+$url = 'https://raw.githubusercontent.com/SpotX-Official/spotx-official.github.io/main/run.ps1'
+$CommandParam = "-new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -block_update_on -DisableStartup -newFullscreenMode"
 $Global:SpotStartText = "Do you want Start Spotify now"
 
 
@@ -258,7 +258,7 @@ do {
                 Start-Sleep -Seconds 2
                 Clear-Host
                 #Write-Host $url
-                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $command -cache_limit $DefaultCache -lyrics_stat $Theme"
+                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $CommandParam -cache_limit $DefaultCache -lyrics_stat $Theme"
                 #Write-Host $command "$Theme"
                 Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
                 Write-Host ""
@@ -287,7 +287,7 @@ do {
                 Write-Color -Text "Please Wait..." -Color Green
                 Start-Sleep -Seconds 2
                 Clear-Host
-                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $command -cache_limit $CacheFree -lyrics_stat $LyricFree"
+                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $CommandParam -cache_limit $CacheFree -lyrics_stat $LyricFree"
                 Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
                 Write-Host ""
                 Write-Color -Text "$SpotStartText" -Color Cyan
@@ -315,7 +315,7 @@ do {
                 Write-Color -Text "Please Wait..." -Color Green
                 Start-Sleep -Seconds 2
                 Clear-Host
-                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } -premium $command -cache_limit $CacheFree -lyrics_stat $LyricFree"
+                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } -premium $CommandParam -cache_limit $CacheFree -lyrics_stat $LyricFree"
                 Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
                 Write-Host ""
                 Write-Color -Text "$SpotStartText" -Color Cyan
