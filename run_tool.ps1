@@ -241,17 +241,18 @@ do {
         '1' {
             Clear-Host
             $host.UI.RawUI.WindowTitle = "Recommended Install"
-            Write-Host "====================================================================================="
+            Write-Host " +---------------------------------------------------------------------------------+"
             Write-Host " "
-            Write-Host "  Recommended installation is a simple installation process without"
-            Write-Host "  selecting a theme, setting the cache so that it speeds up the installation process."
-            Write-Host "  However, if you want to customize, you can use other installation menu."
+            Write-Host "   Recommended installation is a simple installation process without,"
+            Write-Host "   Selecting a theme, setting the cache Size" 
+            Write-Host "   So that it speeds up the installation process."
+            Write-Host "   However, if you want to customize, you can use other installation menu."
             Write-Host " "
-            Write-Host "====================================================================================="
+            Write-Host " +---------------------------------------------------------------------------------+"
             Write-Host " "
             Write-Host "You Will Install Recommended version With:"
             Write-Host "-" $AccountFree
-            Write-Color -Text "-", " $LyricText", " $ThemeRecom" -Color White, White, Green
+            Write-Color -Text "-", " $LyricText", " $Theme" -Color White, White, Green
             Write-Host "-" $CacheText $DefaultCache $SizeUnit
             if (Get-YesNoChoice) {
                 Write-Color -Text "Please Wait..." -Color Green
