@@ -25,7 +25,7 @@ $Global:DefaultCache = 10000
 $Global:SizeUnit = "MB"
 $AppDataRoaming = $env:APPDATA
 $PathSpot = "$AppDataRoaming\Spotify\Spotify.exe"
-$url = 'https://raw.githubusercontent.com/SpotX-Official/SpotX/refs/heads/main/run.ps1'
+$url = 'https://spotx-official.github.io/run.ps1'
 $command = "-new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -block_update_on -DisableStartup -newFullscreenMode"
 $Global:SpotStartText = "Do you want Start Spotify now"
 
