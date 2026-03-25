@@ -8,7 +8,7 @@ Thanks
 
 Source:
 SpotX: https://github.com/SpotX-Official/SpotX
-My Page: https://eksan127.gitbook.io/revanced-xsn-lite/
+My Page: https://eksan127.gitbook.io/xsn-lite/
 ==================================================================================================================
 #>
 
@@ -26,7 +26,7 @@ $Global:SizeUnit = "MB"
 $AppDataRoaming = $env:APPDATA
 $PathSpot = "$AppDataRoaming\Spotify\Spotify.exe"
 $url = 'https://raw.githubusercontent.com/SpotX-Official/spotx-official.github.io/main/run.ps1'
-$CommandParam = "-new_theme -confirm_uninstall_ms_spoti -confirm_spoti_recomended_over -block_update_on -DisableStartup -newFullscreenMode"
+$CommandParam = "-new_theme -confirm_uninstall_ms_spoti -block_update_on -DisableStartup -newFullscreenMode"
 $Global:SpotStartText = "Do you want Start Spotify now"
 
 
