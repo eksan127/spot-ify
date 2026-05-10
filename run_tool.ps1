@@ -330,7 +330,7 @@ do {
             Write-Host "You Will Install:"
             Write-Host "-" $AccountFree
             Write-Host "- Theme" $LyricFree
-            Write-Host "- Cache Size" $CacheFree$SizeUnit
+            Write-Host "- Cache Size" $CacheFree $SizeUnit
             if (Get-YesNoChoice){
                 #$Theme = $LyricFree
                 Write-Color -Text "Please Wait..." -Color Green
@@ -359,7 +359,7 @@ do {
             Write-Host "You Will Install"
             Write-Host "-" $AccountPrem
             Write-Host "- Theme" $LyricPrem
-            Write-Host "- Cache Size" $CachePrem$SizeUnit
+            Write-Host "- Cache Size" $CachePrem $SizeUnit
             if (Get-YesNoChoice){
                 Write-Color -Text "Please Wait..." -Color Green
                 Start-Sleep -Seconds 2
