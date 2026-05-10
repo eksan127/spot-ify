@@ -14,8 +14,8 @@ My Page: https://eksan127.gitbook.io/xsn-lite/
 
 # INPUT VARIABLE
 $ToolName = "Spot-ify Installer Tool"
-$AppVersion = "V4.5"
-$MsgContinue = "Back to Menu Press Enter"
+$AppVersion = "V5.0"
+$MsgContinue = "Back to Menu, Press Enter"
 $AccountFree = "Free Account"
 $AccountPrem = "Premium Account"
 $Theme = "spotify"
@@ -25,6 +25,7 @@ $Global:DefaultCache = 10000
 $Global:SizeUnit = "MB"
 $AppDataRoaming = $env:APPDATA
 $PathSpot = "$AppDataRoaming\Spotify\Spotify.exe"
+$PathSpotFol = "$AppDataRoaming\Spotify"
 $url = 'https://raw.githubusercontent.com/SpotX-Official/spotx-official.github.io/main/run.ps1'
 $CommandParam = "-new_theme -confirm_uninstall_ms_spoti -block_update_on -DisableStartup -newFullscreenMode"
 $Global:SpotStartText = "Do you want Start Spotify now"
@@ -210,6 +211,54 @@ function Get-YesNoChoice {
     }
 }
 
+function chekrunning {
+    $appName = "Spotify"
+    $processrun = Get-Process -Name $appName -ErrorAction SilentlyContinue
+    if ($processrun){
+        Write-Host "$appName is running, Please wait..." -ForegroundColor DarkYellow
+        Start-Sleep -Seconds 2
+        Stop-Process -InputObject $processrun -Force
+        Write-Host "$appName has been terminated." -ForegroundColor Green
+    } else {
+        Write-Host "$appName is not currently running." -ForegroundColor Green
+    }
+}
+
+function remove_patch{
+    param (
+        [string]$FolderPath
+    )
+    Write-Host ""
+    Write-Host "Please wait removing patch..."
+    if (Test-Path -Path "$FolderPath\chrome_elf.dll.bak" -PathType Leaf){
+        Remove-Item -Path "$FolderPath\chrome_elf.dll" -Force -ErrorAction SilentlyContinue
+        Move-Item -Path "$FolderPath\chrome_elf.dll.bak" -Destination "$FolderPath\chrome_elf.dll" -Force -ErrorAction SilentlyContinue
+    }
+
+    if (Test-Path -Path "$FolderPath\Spotify.dll.bak" -PathType Leaf){
+        Remove-Item -Path "$FolderPath\Spotify.dll" -Force -ErrorAction SilentlyContinue
+        Move-Item -Path "$FolderPath\Spotify.dll.bak" -Destination "$FolderPath\Spotify.dll" -Force -ErrorAction SilentlyContinue
+    }
+
+    if (Test-Path -Path "$FolderPath\Spotify.bak" -PathType Leaf){
+        Remove-Item -Path "$FolderPath\Spotify.exe" -Force -ErrorAction SilentlyContinue
+        Move-Item -Path "$FolderPath\Spotify.bak" -Destination "$FolderPath\Spotify.exe" -Force -ErrorAction SilentlyContinue
+    }
+
+    if (Test-Path -Path "$FolderPath\Apps\xpui.bak" -PathType Leaf){
+        Remove-Item -Path "$FolderPath\Apps\xpui.spa" -Force -ErrorAction SilentlyContinue
+        Move-Item -Path "$FolderPath\Apps\xpui.bak" -Destination "$FolderPath\Apps\xpui.spa" -Force -ErrorAction SilentlyContinue
+    }
+
+    if (Test-Path -Path "%temp%\SpotX_Temp"){
+        Remove-Item -Path "%temp%\SpotX_Temp\*" -Recurse
+    }
+
+    Write-Host "Patch successfully removed" -ForegroundColor Green
+    Write-Host ""
+    Read-Host -Prompt $MsgContinue
+}
+
 #Set window to 100 columns wide and 40 lines high
 Set-ConsoleWindowSize -Width 85 -Height 40
 
@@ -223,7 +272,6 @@ function Show-Menu {
     Write-Color -Text "                                        ", "$AppVersion" -Color White, Cyan                                         
     Write-Host "                           Thanks to SpotX and @amd64fox"
     Write-Host " ++===============================================================================++"
-    #Write-Color -Text "          ", " Warning:", " This tool for some Antivirus will be marked as virus" -Color White, Yellow, White
     Write-Host " "
     Write-Host "MENU:"
     Write-Host "[1] Recomended Install (for Free Account)" -ForegroundColor Green
@@ -334,8 +382,16 @@ do {
         '4' {
             Clear-Host
             $Host.UI.RawUI.WindowTitle = "Uninstall Patch"
-            Write-Host "Uninstall Patch Soon..."
-            Pause
+            Write-Host "+-----------------------------------------------------------------+"
+            Write-Host "  This only Uninstall Patch "
+            Write-Host "  Then the Spotify will restore to Default version (Un-patching)"
+            Write-Host "+-----------------------------------------------------------------+"
+            if (Get-YesNoChoice){
+                chekrunning
+                remove_patch -FolderPath $PathSpotFol
+            } else {
+                Show-Menu
+            }
         }
         'q' {
             Write-Host "Quitting Tool" -ForegroundColor Yellow
@@ -344,7 +400,6 @@ do {
         Default {
             Write-Host "Invalid selection. Please try again." -ForegroundColor Red
             Write-Host "`e[1A`e[K" -NoNewline
-            #Read-Host -Prompt $MsgContinue
         }
     }
 } until ($Menu -eq 'q')
