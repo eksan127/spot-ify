@@ -14,13 +14,13 @@ My Page: https://eksan127.gitbook.io/xsn-lite/
 
 # INPUT VARIABLE
 $ToolName = "Spot-ify Installer Tool"
-$AppVersion = "V5.0"
+$AppVersion = "v5.1"
 $MsgContinue = "Back to Menu, Press Enter"
-$AccountFree = "Free Account"
-$AccountPrem = "Premium Account"
+$AccountFree = "Free"
+$AccountPrem = "Premium"
 $Theme = "spotify"
 $LyricText = "With Theme Lyric"
-$CacheText = "Cache Limit"
+$CacheText = "Cache Size Limit"
 $Global:DefaultCache = 10000
 $Global:SizeUnit = "MB"
 $AppDataRoaming = $env:APPDATA
@@ -259,6 +259,98 @@ function remove_patch{
     Read-Host -Prompt $MsgContinue
 }
 
+function Get-Recommended_install {
+    param (
+        [string]$recom_account,
+        [string]$recom_lyrictext,
+        [string]$recom_theme,
+        [string]$recom_cachetext,
+        [int]$recom_defaultcache,
+        [string]$recom_sizeunit
+    )
+        Write-Host " +---------------------------------------------------------------------------------+"
+        Write-Host " "
+        Write-Host "   Recommended installation is a simple installation process without,"
+        Write-Host "   Selecting a theme, setting the cache Size" 
+        Write-Host "   So that it speeds up the installation process."
+        Write-Host "   However, if you want to customize, you can use other installation menu."
+        Write-Host " "
+        Write-Host " +---------------------------------------------------------------------------------+"
+        Write-Host " "
+        Write-Host "You will Installing with:"
+        Write-Host "-" $recom_account "Account"
+        Write-Color -Text "-", " $recom_lyrictext", " $recom_theme" -Color White, White, Green
+        Write-Host "-" $recom_cachetext $recom_defaultcache $recom_sizeunit
+        if (Get-YesNoChoice) {
+            if ($recom_account -match "Free"){
+                Write-Color -Text "Please Wait..." -Color Green
+                Start-Sleep -Seconds 2
+                Clear-Host
+                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $CommandParam -cache_limit $recom_defaultcache -lyrics_stat $recom_theme"
+                Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
+                Write-Host ""
+                Get-ChoiceRunSpot
+            } elseif ($recom_account -match "Premium") {
+                Write-Color -Text "Please Wait..." -Color Green
+                Start-Sleep -Seconds 2
+                Clear-Host
+                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } -premium $CommandParam -cache_limit $recom_defaultcache -lyrics_stat $recom_theme"
+                Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
+                Write-Host ""
+                Get-ChoiceRunSpot
+            }
+        } else {
+            Show-Menu
+        }
+}
+
+function Get-Custom_Install {
+    param (
+        [string]$custom_account,
+        [string]$custom_lyrictext,
+        [string]$custom_theme,
+        [string]$custom_cachetext,
+        [int]$custom_defaultcache,
+        [string]$custom_sizeunit
+    )
+    Write-Host "You will Installing with:"
+    Write-Host "-" $custom_account "Account"
+    Write-Color -Text "-", " $custom_lyrictext", " $custom_theme" -Color White, White, Green
+    Write-Host "-" $custom_cachetext $custom_defaultcache $custom_sizeunit
+    if (Get-YesNoChoice){
+        if ($custom_account -match "Free"){
+            Write-Color -Text "Please Wait..." -Color Green
+            Start-Sleep -Seconds 2
+            Clear-Host
+            Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $CommandParam -cache_limit $custom_defaultcache -lyrics_stat $custom_theme"
+            Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
+            Write-Host ""
+            Get-ChoiceRunSpot
+        } elseif ($custom_account -match "Premium") {
+            Write-Color -Text "Please Wait..." -Color Green
+            Start-Sleep -Seconds 2
+            Clear-Host
+            Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } -premium $CommandParam -cache_limit $custom_defaultcache -lyrics_stat $custom_theme"
+            Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
+            Write-Host ""
+            Get-ChoiceRunSpot
+        }
+    } else {
+        Show-Menu
+    }
+}
+
+function Get-ChoiceRunSpot {
+    Write-Color -Text "$SpotStartText" -Color Cyan
+    if (Get-YesNoChoice){
+        StartSpot #Call Function StartSpot
+    }
+    else {
+        Show-Menu
+    }
+    
+}
+
 #Set window to 100 columns wide and 40 lines high
 Set-ConsoleWindowSize -Width 85 -Height 40
 
@@ -267,18 +359,24 @@ function Show-Menu {
     Clear-Host
     $host.UI.RawUI.WindowTitle = $ToolName
     #Write-Host "This version only for test and not work for now" -BackgroundColor Red -ForegroundColor White
-    Write-Host " ++===============================================================================++"
+    Write-Host " +=================================================================================+"
     Write-Host "                         Spot-ify Installer With SpotX Patch"                    
     Write-Color -Text "                                        ", "$AppVersion" -Color White, Cyan                                         
     Write-Host "                           Thanks to SpotX and @amd64fox"
-    Write-Host " ++===============================================================================++"
+    Write-Host " +=================================================================================+"
     Write-Host " "
-    Write-Host "MENU:"
-    Write-Host "[1] Recomended Install (for Free Account)" -ForegroundColor Green
-    Write-Host "[2] Free Account" -ForegroundColor Green
-    Write-Host "[3] Premium Account" -ForegroundColor Green
-    Write-Host "[4] Uninstall Patch" -ForegroundColor DarkYellow
-    Write-Host "[Q] Quit" -ForegroundColor Red
+    Write-Host " MENU:"
+    Write-Host " ------------------------------------------------"
+    Write-Host " Recommended Install:"
+    Write-Host "  [1] Free Account" -ForegroundColor Green
+    Write-Host "  [2] Premium Account" -ForegroundColor Green
+    Write-Host " ------------------------------------------------"
+    Write-Host " Custom Install:"
+    Write-Host "  [3] Free Account" -ForegroundColor Green
+    Write-Host "  [4] Premium Account" -ForegroundColor Green
+    Write-Host " ------------------------------------------------"
+    Write-Host "  [5] Uninstall Patch" -ForegroundColor DarkYellow
+    Write-Host "  [Q] Quit" -ForegroundColor Red
     Write-Host " "
 }
 # CHOICE USER MENU
@@ -289,97 +387,27 @@ do {
         '1' {
             Clear-Host
             $host.UI.RawUI.WindowTitle = "Recommended Install"
-            Write-Host " +---------------------------------------------------------------------------------+"
-            Write-Host " "
-            Write-Host "   Recommended installation is a simple installation process without,"
-            Write-Host "   Selecting a theme, setting the cache Size" 
-            Write-Host "   So that it speeds up the installation process."
-            Write-Host "   However, if you want to customize, you can use other installation menu."
-            Write-Host " "
-            Write-Host " +---------------------------------------------------------------------------------+"
-            Write-Host " "
-            Write-Host "You Will Install Recommended version With:"
-            Write-Host "-" $AccountFree
-            Write-Color -Text "-", " $LyricText", " $Theme" -Color White, White, Green
-            Write-Host "-" $CacheText $DefaultCache $SizeUnit
-            if (Get-YesNoChoice) {
-                Write-Color -Text "Please Wait..." -Color Green
-                Start-Sleep -Seconds 2
-                Clear-Host
-                #Write-Host $url
-                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $CommandParam -cache_limit $DefaultCache -lyrics_stat $Theme"
-                #Write-Host $command "$Theme"
-                Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
-                Write-Host ""
-                Write-Color -Text "$SpotStartText" -Color Cyan
-                if (Get-YesNoChoice){
-                    StartSpot #Call Function StartSpot
-                }
-                else {
-                    Show-Menu
-                }
-            } else {
-                Show-Menu
-            }
+            Get-Recommended_install -recom_account "$AccountFree" -recom_lyrictext "$LyricText" -recom_theme "$Theme" -recom_cachetext "$CacheText" -recom_defaultcache $DefaultCache -recom_sizeunit "$SizeUnit"
         }
-        '2' {
-            $host.UI.RawUI.WindowTitle = "Free Account"
+        '2'{
+            Clear-Host
+            $host.UI.RawUI.WindowTitle = "Recommended Install"
+            Get-Recommended_install -recom_account "$AccountPrem" -recom_lyrictext "$LyricText" -recom_theme "$Theme" -recom_cachetext "$CacheText" -recom_defaultcache $DefaultCache -recom_sizeunit "$SizeUnit"
+        }
+        '3' {
+            $host.UI.RawUI.WindowTitle = "Custom Install"
             $LyricFree = Get-ListThemeLyric
             $CacheFree = InputCache
             Clear-Host
-            Write-Host "You Will Install:"
-            Write-Host "-" $AccountFree
-            Write-Host "- Theme" $LyricFree
-            Write-Host "- Cache Size" $CacheFree $SizeUnit
-            if (Get-YesNoChoice){
-                #$Theme = $LyricFree
-                Write-Color -Text "Please Wait..." -Color Green
-                Start-Sleep -Seconds 2
-                Clear-Host
-                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } $CommandParam -cache_limit $CacheFree -lyrics_stat $LyricFree"
-                Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
-                Write-Host ""
-                Write-Color -Text "$SpotStartText" -Color Cyan
-                if (Get-YesNoChoice){
-                    StartSpot #Call Function StartSpot
-                }
-                else {
-                    Show-Menu
-                }
-            }
-            else {
-                Show-Menu
-            }
-        }
-        '3' {
-            $Host.UI.RawUI.WindowTitle = "Premum Account"
-            $LyricPrem = Get-ListThemeLyric
-            $CachePrem = InputCache
-            Clear-Host
-            Write-Host "You Will Install"
-            Write-Host "-" $AccountPrem
-            Write-Host "- Theme" $LyricPrem
-            Write-Host "- Cache Size" $CachePrem $SizeUnit
-            if (Get-YesNoChoice){
-                Write-Color -Text "Please Wait..." -Color Green
-                Start-Sleep -Seconds 2
-                Clear-Host
-                Invoke-Expression "& { $(Invoke-WebRequest -useb $url) } -premium $CommandParam -cache_limit $CacheFree -lyrics_stat $LyricFree"
-                Write-Host "Spotify Succesfully Installed" -ForegroundColor Green
-                Write-Host ""
-                Write-Color -Text "$SpotStartText" -Color Cyan
-                if (Get-YesNoChoice){
-                    StartSpot #Call Function StartSpot
-                }
-                else {
-                    Show-Menu
-                }
-            }
-            else {
-                Show-Menu
-            }
+            Get-Custom_Install -custom_account "$AccountFree" -custom_lyrictext "$LyricText" -custom_theme "$LyricFree" -custom_cachetext "$CacheText" -custom_defaultcache "$CacheFree" -custom_sizeunit "$SizeUnit"
         }
         '4' {
+            $Host.UI.RawUI.WindowTitle = "Custom Install"
+            $LyricPrem = Get-ListThemeLyric
+            $CachePrem = InputCache
+            Get-Custom_Install -custom_account "$AccountPrem" -custom_lyrictext "$LyricText" -custom_theme "$LyricPrem" -custom_cachetext "$CacheText" -custom_defaultcache "$CachePrem" -custom_sizeunit "$SizeUnit"
+        }
+        '5' {
             Clear-Host
             $Host.UI.RawUI.WindowTitle = "Uninstall Patch"
             Write-Host "+-----------------------------------------------------------------+"
