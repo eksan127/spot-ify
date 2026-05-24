@@ -12,7 +12,8 @@ In this Tool you can Set:
 - Hiding podcasts, episodes, and audiobooks (Optional)
 - Custom Size Cache
 - Chose Theme Lyric
-- Spotify update Blocked  
+- Spotify update Blocked
+- Uninstall patch
 >[!NOTE]
 >Why update Blocked by Default? Because if Spotify update automatically will remove the patch  
 >How to Update? just Run the tool again  
