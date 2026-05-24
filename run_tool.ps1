@@ -405,6 +405,7 @@ do {
             $Host.UI.RawUI.WindowTitle = "Custom Install"
             $LyricPrem = Get-ListThemeLyric
             $CachePrem = InputCache
+            Clear-Host
             Get-Custom_Install -custom_account "$AccountPrem" -custom_lyrictext "$LyricText" -custom_theme "$LyricPrem" -custom_cachetext "$CacheText" -custom_defaultcache "$CachePrem" -custom_sizeunit "$SizeUnit"
         }
         '5' {
