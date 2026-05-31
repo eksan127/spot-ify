@@ -30,6 +30,17 @@ $url = 'https://raw.githubusercontent.com/SpotX-Official/spotx-official.github.i
 $CommandParam = "-new_theme -confirm_uninstall_ms_spoti -block_update_on -DisableStartup -newFullscreenMode"
 $Global:SpotStartText = "Do you want Start Spotify now"
 
+#set variable for characters maps
+$horizontal_line1 = [char]0x2500 # ─
+$horizontal_line2 = [char]0x2550 # ═
+$top_left = [char]0x2554 # ╔
+$top_right = [char]0x2557 # ╗
+$bottom_left = [char]0x255A # ╚
+$bottom_right = [char]0x255D # ╝
+$Vertical_line = [char]0x2551 # ║
+$line_top = $top_left + (New-Object -TypeName System.String -ArgumentList $horizontal_line2,80) + $top_right
+$line_bottom = $bottom_left + (New-Object -TypeName System.String -ArgumentList $horizontal_line2,80) + $bottom_right
+
 
 # CUSTOM FUNCTION COLORING
 function Write-Color {
@@ -268,19 +279,18 @@ function Get-Recommended_install {
         [int]$recom_defaultcache,
         [string]$recom_sizeunit
     )
-        Write-Host " +---------------------------------------------------------------------------------+"
+        Write-Host " "$line_top
         Write-Host " "
-        Write-Host "   Recommended installation is a simple installation process without,"
-        Write-Host "   Selecting a theme, setting the cache Size" 
-        Write-Host "   So that it speeds up the installation process."
-        Write-Host "   However, if you want to customize, you can use other installation menu."
+        Write-Host " " "    Recommended installation is a simple installation process without,"
+        Write-Host " " "    Selecting a theme, setting the cache Size" 
+        Write-Host " " "    So that it speeds up the installation process."
+        Write-Host " " "    However, if you want to customize, you can use other installation menu."
         Write-Host " "
-        Write-Host " +---------------------------------------------------------------------------------+"
-        Write-Host " "
-        Write-Host "You will Installing with:"
-        Write-Host "-" $recom_account "Account"
-        Write-Color -Text "-", " $recom_lyrictext", " $recom_theme" -Color White, White, Green
-        Write-Host "-" $recom_cachetext $recom_defaultcache $recom_sizeunit
+        Write-Host " "$line_bottom
+        Write-Host " " "You will Installing with:"
+        Write-Host " " "-" $recom_account "Account"
+        Write-Host " " "-", "$recom_lyrictext", " $recom_theme" -Color White, White, White, Green
+        Write-Host " " "-" $recom_cachetext $recom_defaultcache $recom_sizeunit
         if (Get-YesNoChoice) {
             if ($recom_account -match "Free"){
                 Write-Color -Text "Please Wait..." -Color Green
@@ -359,24 +369,24 @@ function Show-Menu {
     Clear-Host
     $host.UI.RawUI.WindowTitle = $ToolName
     #Write-Host "This version only for test and not work for now" -BackgroundColor Red -ForegroundColor White
-    Write-Host " +=================================================================================+"
-    Write-Host "                         Spot-ify Installer With SpotX Patch"                    
-    Write-Color -Text "                                        ", "$AppVersion" -Color White, Cyan                                         
-    Write-Host "                           Thanks to SpotX and @amd64fox"
-    Write-Host " +=================================================================================+"
+    Write-Host " "$line_top
+    Write-Host " "$Vertical_line "                    " "Spot-ify Installer With SpotX Patch" "                     " $Vertical_line
+    Write-Host " "$Vertical_line "                                    " "$AppVersion" "                                    " $Vertical_line
+    Write-Host " "$Vertical_line "                       " "Thanks to SpotX and @amd64fox" "                        " $Vertical_line
+    Write-Host " "$line_bottom
     Write-Host " "
-    Write-Host " MENU:"
-    Write-Host " ------------------------------------------------"
-    Write-Host " Recommended Install:"
-    Write-Host "  [1] Free Account" -ForegroundColor Green
-    Write-Host "  [2] Premium Account" -ForegroundColor Green
-    Write-Host " ------------------------------------------------"
-    Write-Host " Custom Install:"
-    Write-Host "  [3] Free Account" -ForegroundColor Green
-    Write-Host "  [4] Premium Account" -ForegroundColor Green
-    Write-Host " ------------------------------------------------"
-    Write-Host "  [5] Uninstall Patch" -ForegroundColor DarkYellow
-    Write-Host "  [Q] Quit" -ForegroundColor Red
+    Write-Host " " "MENU:"
+    Write-Host " " ("$Horizontal_line1" * 20)
+    Write-Host " " "Recommended Install:"
+    Write-Host " " "[1] Free Account" -ForegroundColor Green
+    Write-Host " " "[2] Premium Account" -ForegroundColor Green
+    #Write-Host " " ("$Horizontal_line1" * 22)
+    Write-Host " " "Custom Install:"
+    Write-Host " " "[3] Free Account" -ForegroundColor Green
+    Write-Host " " "[4] Premium Account" -ForegroundColor Green
+    Write-Host " " ("$Horizontal_line1" * 20)
+    Write-Host " " "[5] Uninstall Patch" -ForegroundColor DarkYellow
+    Write-Host " " "[Q] Quit" -ForegroundColor Red
     Write-Host " "
 }
 # CHOICE USER MENU
