@@ -279,18 +279,16 @@ function Get-Recommended_install {
         [int]$recom_defaultcache,
         [string]$recom_sizeunit
     )
-        Write-Host " "$line_top
-        Write-Host " "
-        Write-Host " " "    Recommended installation is a simple installation process without,"
-        Write-Host " " "    Selecting a theme, setting the cache Size" 
-        Write-Host " " "    So that it speeds up the installation process."
-        Write-Host " " "    However, if you want to customize, you can use other installation menu."
-        Write-Host " "
-        Write-Host " "$line_bottom
-        Write-Host " " "You will Installing with:"
-        Write-Host " " "-" $recom_account "Account"
-        Write-Host " " "-", "$recom_lyrictext", " $recom_theme" -Color White, White, White, Green
-        Write-Host " " "-" $recom_cachetext $recom_defaultcache $recom_sizeunit
+        Write-Host " +-------------------------------------------------------------------------+"
+        Write-Host "  Recommended installation is a simple installation process without,"
+        Write-Host "  Selecting a theme, setting the cache Size" 
+        Write-Host "  So that it speeds up the installation process."
+        Write-Host "  However, if you want to customize, you can use other installation menu."
+        Write-Host " +-------------------------------------------------------------------------+"
+        Write-Host " You will Installing with:"
+        Write-Host " -" $recom_account "Account"
+        Write-Host " -", "$recom_lyrictext", " $recom_theme"
+        Write-Host " -" $recom_cachetext $recom_defaultcache $recom_sizeunit
         if (Get-YesNoChoice) {
             if ($recom_account -match "Free"){
                 Write-Color -Text "Please Wait..." -Color Green
@@ -392,7 +390,7 @@ function Show-Menu {
 # CHOICE USER MENU
 do {
     Show-Menu
-    $Menu = Read-Host -Prompt "Enter your Choice [1,2,3..,Q]?"
+    $Menu = Read-Host -Prompt "  Enter your Choice [1,2,3..,Q]?"
     switch ($Menu) {
         '1' {
             Clear-Host
